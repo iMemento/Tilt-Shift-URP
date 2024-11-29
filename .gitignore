@@ -58,4 +58,6 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 Tilt-Shift/Library/*
+Tilt-Shift/Temp/*
+Tilt-Shift/Logs/*
 

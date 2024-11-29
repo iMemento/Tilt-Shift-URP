@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -54,6 +55,15 @@ public class TiltShiftRenderFeature : ScriptableRendererFeature
     // This method is called when setting up the renderer once per-camera.
     public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
     {
+        if (settings.mMat == null)
+        {
+            Debug.LogWarningFormat("丢失blit材质");
+            return;
+        }
+        renderer.EnqueuePass(m_ScriptablePass);
+    }
+    
+    public override void SetupRenderPasses(ScriptableRenderer renderer, in RenderingData renderingData) {
         var src = renderer.cameraColorTarget;
         var dest = RenderTargetHandle.CameraTarget;
         if (settings.mMat == null)
@@ -62,6 +72,5 @@ public class TiltShiftRenderFeature : ScriptableRendererFeature
             return;
         }
         m_ScriptablePass.Setup(src, dest);
-        renderer.EnqueuePass(m_ScriptablePass);
     }
 }
